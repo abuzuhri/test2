@@ -10,7 +10,7 @@ var Example = require('Example');
 
 require('style!css!bootstrap/dist/css/bootstrap.min.css');
 
-require('style!css!applicationStyles')
+require('style!css!sass!applicationStyles')
 
 
 //$( document ).ready(function() {
