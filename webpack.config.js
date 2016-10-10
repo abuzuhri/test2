@@ -1,9 +1,26 @@
+var path = require("path");
+var webpack = require('webpack');
+
 module.exports = {
-  entry: './app/app.jsx',
+  entry: [
+    'script!jquery/dist/jquery.min.js',
+    'script!bootstrap/dist/js/bootstrap.min.js',
+    './app/app.jsx',
+
+  ],
+  externals:{
+    jquery:'jQuery'
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({ $: "jquery" , jQuery: "jquery"})
+  ],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
   },
+
   resolve: {
     root: __dirname,
     alias: {
@@ -14,7 +31,8 @@ module.exports = {
       WeatherForm: 'app/components/WeatherForm.jsx',
       WeatherMessage: 'app/components/WeatherMessage.jsx',
       Example: 'app/components/Example.jsx',
-      openWeatherMap: 'app/api/openWeatherMap.jsx'
+      openWeatherMap: 'app/api/openWeatherMap.jsx',
+      applicationStyles:'app/styles/app.css'
 
     },
     extensions: ['', '.js', '.jsx']
@@ -28,7 +46,8 @@ module.exports = {
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
-      }
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   },
   devtool: 'inline-source-map'
